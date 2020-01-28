@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>KUZEN - editor</title>
+  <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="0r0BJyAOIbFfbdSSjnzpLqpwoAAh/CCNjdDwv74gWpvyRh+Kne3h7hNOyOWC0gMfOFl94ihXnxULFrOmOmJ6EQ==" />
+  <meta name="action-cable-url" content="/cable" />
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://fb0148f4.ngrok.io/assets/favicon-2032430a15a6cee1125074208df3b10a6b3e062101bafb15ffb0b5a0a0c91562.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://fb0148f4.ngrok.io/packs/manifest-6b5f1d400dd7d735aa1b.js"></script>
+  <script src="https://fb0148f4.ngrok.io/packs/vendor-d6c7f169161d2536149f.js"></script>
+  <script src="https://fb0148f4.ngrok.io/packs/application-713da2c96d0446e5a5c8.js"></script>
+  <link rel="stylesheet" media="screen" href="https://fb0148f4.ngrok.io/packs/application-4e39021b9ba14d8e9eb59a8b233db2f8.css" />
+  <link rel="stylesheet" media="screen" href="https://fb0148f4.ngrok.io/packs/vendor-f14b370fe53dcf5aa5b29a4233c302ec.css" />
+</head>
+
+<body class="dashboard">
+	<div class="container">
+	  <header><div class="container-box"><nav><span class="navbar-brand">Web plugin テストページ</span></nav></div></header><main><div class="jumbotron"><div class="container-box"><h1>url before button</h1><p>Web pluginのテストをこちらで行うことができます。<br />選択されたモードに応じてチャットが表示されます。</p></div></div><div class="container-box main-content"><section id="cu-embedded-web-plugin-container" style="width: 100%; height: 450px;"><h1 class="section-title">タイトル</h1><p>サンプルテキストです<br />サンプルテキストです</p><h2>サブタイトル</h2><p>サンプルテキストです<br />サンプルテキストです<br />サンプルテキストです<br />サンプルテキストです</p></section><section><h1 class="section-title">タイトル</h1><p>サンプルテキストです<br />サンプルテキストです<br />サンプルテキストです<br /></p><h2>サブタイトル</h2><p>サンプルテキストです<br />サンプルテキストです<br />サンプルテキストです<br />サンプルテキストです</p></section></div></main><footer><div class="container-box"><span>フッター</span></div></footer><div id="error-dialog" style="display: none"><section class="modal-window"><p class="modal-close" id="error-dialog-close" onclick="getElementById(&#39;error-dialog&#39;).style.display = &#39;none&#39;"><a href="#!"> &times;</a></p><div class="modal-inner"><div class="error-title"><img alt="マーク" src="https://fb0148f4.ngrok.io/assets/surprised_mark-b47f5e83fd9b1f7896946318806c755501ae880e3351af6f9219334ec405942d.png" /><p id="error-content"><a id="node-error"><strong>263:メッセージノードでエラー</strong></a></p></div><div class="error-message"><p><a target="_blank" href="/original_services/4451/scenario_errors?service_id=5258&amp;type=training">エラーの詳細を確認する</a></p></div></div></section></div><script>var __const = [];
+__const['host'] = "https://fb0148f4.ngrok.io"; // dialog_server
+__const['access_token'] = "3ac2ba1d60d2f6ef01a6298a2a3daf08";
+__const['service_id'] = "5258";    //service_id
+__const['secret_token'] = "c87bb6273f23066030f8cc3046ace42e";    //origianl_service_id
+__const['screen'] = "web_plugin_test";
+var app = (function(doc ,scr){
+  var created_element = doc.createElement(scr),
+      sub_ele = doc.getElementsByTagName(scr)[0];
+  created_element.type = 'text/javascript';
+  created_element.async = true;
+  created_element.setAttribute('charset','utf-8');
+  created_element.src = __const['host'] + '/chat_app_logic.js';
+  sub_ele.parentNode.insertBefore(created_element, sub_ele)
+})(document, 'script')
+
+function EncodeHTMLForm(data) {
+  var params = [];
+
+  for (var name in data) {
+      var value = data[name];
+      var param = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+
+      params.push(param);
+  }
+
+  return params.join('&').replace(/%20/g, '+');
+}
+
+function checkScenarioError(sequence_datas, chat_application_id, user_id_in_chat_application) {
+  if(sequence_datas && sequence_datas[0] && sequence_datas[0].type == "ScenarioErrorSerializer"){
+    document.getElementById("error-dialog").style.display = "none"
+    str = "";
+    sequence_datas.forEach(function(data, index){
+      if(index != 0) str += "</br>";
+      if(data.sequential_last_node_id) {
+        str += "<a id='node-error' onClick=nodeEdit(this) href='#' node-id=" + data.last_node_id + "><strong>" +
+          data.sequential_last_node_id + ": " + data.node_type +"ノードでエラー</strong></a></br>";
+      }
+
+      str += data.message + "</br>";
+    })
+    document.getElementById("error-content").innerHTML = str;
+    document.getElementById("error-dialog").style.display = "block"
+
+  } else {
+    if(sequence_datas && sequence_datas.length && sequence_datas.length > 0) {
+      sequence_id = sequence_datas[sequence_datas.length - 1].id;
+    } else {
+      sequence_id = "";
+    }
+
+    var xhr = new XMLHttpRequest();
+    var url = "https://fb0148f4.ngrok.io/original_services/4451/scenario_errors/check_errors"
+    var send_data = {
+      "service_id": __const['service_id'],
+      "sequence_id": sequence_id,
+      "chat_application_id": chat_application_id,
+      "parent_id": "",
+      "user_id_in_chat_application": user_id_in_chat_application
+    }
+    var params = EncodeHTMLForm(send_data);
+
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        datas  = JSON.parse(xhr.responseText);
+        if(datas.length > 0) {
+          document.getElementById("error-dialog").style.display = "none"
+          str = ""
+          datas.slice(0, 2).forEach(function(data, index){
+            if(index != 0) str += "</br>";
+            str += "<a><strong>" + data["node_sequential"] + ": " + data["node_type"] +"ノードでエラー</strong></a></br>"
+            data["messages"].slice(0, 3).forEach(function(message){
+              str += message + "</br>"
+            });
+          })
+          document.getElementById("error-content").innerHTML = str;
+          document.getElementById("error-dialog").style.display = "block"
+        }
+      }
+    };
+
+    xhr.open("GET", url + "?" + params, true);
+    xhr.setRequestHeader( 'Content-Type', 'application/json' );
+    xhr.send(null);
+  };
+}</script><style type="text/css">section {
+  display: block;
+}
+
+.modal-window {
+  width: 380px;
+  background: #F0F0F0;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.modal-close {
+  text-align: right;
+}
+
+#error-dialog {
+  z-index: 99999;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+}
+.error-title {
+  display: flex;
+  line-height: 1.5;
+}
+.error-title img {
+    width: 36px;
+    height: 36px;
+    margin-right: 8px;
+}
+#error-content {
+  margin-top: 0px;
+}
+.error-message {
+  text-align: center;
+  padding-top: 10px;
+  line-height: 2;
+}
+.mark {
+  padding-right: 10px;
+}
+
+
+html, body {
+  margin: 0;
+}
+
+* {
+  font-family: 'Noto SansJP Regular', helvetica;
+}
+
+nav {
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+h1 {
+  font-size: 32px;
+}
+h2 {
+  font-size: 20px;
+}
+
+p {
+  line-height: 2;
+}
+
+section {
+  padding: 40px 0;
+}
+
+.navbar-brand {
+  font-size: 18px;
+}
+
+.container-box {
+  max-width: 1024px;
+  padding: 0 16px;
+  margin: 0 auto;
+}
+
+.jumbotron {
+  padding: 24px 0;
+  background-color: #3a8bcb;
+}
+.jumbotron * {
+  color: white;
+}
+
+.main-content {
+  box-shadow: 0 2px 4px rgba(0,0,0,.16);
+}
+
+.section-title {
+  padding: 24px 0 12px;
+  border-bottom: 1px solid #ccc;
+}
+
+footer {
+  padding: 80px;
+  background-color: #333;
+}
+footer * {
+  color: white;
+}</style>
+	</div>
+
+<script async type="text/javascript" id="mini-profiler" src="/mini-profiler-resources/includes.js?v=251162ee7dc30da30d5370581c664510" data-version="251162ee7dc30da30d5370581c664510" data-path="/mini-profiler-resources/" data-current-id="3ljkyokdsmfituigbk9u" data-ids="3ljkyokdsmfituigbk9u,xvgt8cttefczzkqgvyup,z3h2o6nppdfbnylcuug1" data-horizontal-position="left" data-vertical-position="top" data-trivial="false" data-children="false" data-max-traces="20" data-controls="false" data-authorized="true" data-toggle-shortcut="Alt+P" data-start-hidden="false" data-collapse-results="true" data-html-container="body"></script>
+</body>
+</html>
