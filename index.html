@@ -1,217 +1,796 @@
-
 <!DOCTYPE html>
-<html>
+<html style="height:100%;overflow:hidden;width: 100%;">
 <head>
-  <title>KUZEN - editor</title>
+  <title>DialogApi</title>
   <meta name="csrf-param" content="authenticity_token" />
-<meta name="csrf-token" content="0r0BJyAOIbFfbdSSjnzpLqpwoAAh/CCNjdDwv74gWpvyRh+Kne3h7hNOyOWC0gMfOFl94ihXnxULFrOmOmJ6EQ==" />
+<meta name="csrf-token" content="4wt6tLwwT1lidQOFULk7Py0OtkhgHDXFeQO7VI5OGeV64j2yB8k5IgIbzcPlJD3DaP4e2D+T0tD5PqyixA5CHA==" />
   <meta name="action-cable-url" content="/cable" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
 
-  <link rel="shortcut icon" type="image/x-icon" href="https://fb0148f4.ngrok.io/assets/favicon-2032430a15a6cee1125074208df3b10a6b3e062101bafb15ffb0b5a0a0c91562.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://fb0148f4.ngrok.io/packs/manifest-6b5f1d400dd7d735aa1b.js"></script>
-  <script src="https://fb0148f4.ngrok.io/packs/vendor-d6c7f169161d2536149f.js"></script>
-  <script src="https://fb0148f4.ngrok.io/packs/application-713da2c96d0446e5a5c8.js"></script>
-  <link rel="stylesheet" media="screen" href="https://fb0148f4.ngrok.io/packs/application-4e39021b9ba14d8e9eb59a8b233db2f8.css" />
-  <link rel="stylesheet" media="screen" href="https://fb0148f4.ngrok.io/packs/vendor-f14b370fe53dcf5aa5b29a4233c302ec.css" />
+  <script type="text/javascript" charset="utf-8">
+    (function(arr) {
+        arr.forEach(function(item) {
+            item.remove = item.remove || function() {
+                this.parentNode.removeChild(this);
+            };
+        });
+    })([Element.prototype, CharacterData.prototype, DocumentType.prototype]);
+    (function () {
+        function CustomEvent (event, params) {
+            params = params || { bubbles: false, cancelable: false, detail: undefined };
+            var evt = document.createEvent('CustomEvent');
+            evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+            return evt;
+        };
+        CustomEvent.prototype = window.CustomEvent.prototype;
+        window.CustomEvent = CustomEvent;
+    })();
+  </script>
+
+  <link rel="stylesheet" media="screen" href="/assets/materialdesignicons.min.self-ef558c7107d7220ab1305ca72d493d92e6002e30a457c8b61efc48099546fdf5.css?body=1" />
+<link rel="stylesheet" media="screen" href="/assets/plugins.self-432f7642176cbbe3478c7986ce439b2c99642bf0f1a81ae971e7c7e6c1e3c3b5.css?body=1" />
+  <script src="/assets/sequence_format.self-92e75054e863b2263301839defb464bcf13b0f363bb59d5891f2e264f7d3b1cb.js?body=1"></script>
+<script src="/assets/moment.self-34da66f0997d145341cfb3fc71c794ea32b4c6affa3ff5d9e7e5107170125d1c.js?body=1"></script>
+<script src="/assets/lodash/lodash.self-1d0878ed2403c52d203a296ba567afc1b70b6676393e239e9b09b33d9811d5e9.js?body=1"></script>
+<script src="/assets/jquery.self-bd7ddd393353a8d2480a622e80342adf488fb6006d667e8b42e4c0073393abee.js?body=1"></script>
+<script src="/assets/react.min.self-567e5c1e9e5c2eec4d735485ba3477f34082fccf72f75f100111505b3f698111.js?body=1"></script>
+<script src="/assets/react-dom.min.self-a89a5e174061f85e316e20a762dccde878bfd205d60107e22b500d1a264aff26.js?body=1"></script>
+<script src="/assets/slick.min.self-189a35d16c1f505c16f3aff3b82dc09c0de881e5dcbacf4867e91bcd20402e4d.js?body=1"></script>
+<script src="/assets/action_cable.self-69fddfcddf4fdef9828648f9330d6ce108b93b82b0b8d3affffc59a114853451.js?body=1"></script>
+<script src="/assets/client_cable.self-d2af95138be41962446124fefa18b0ed2526c265b807c5ed64ac94f9d8bf8e72.js?body=1"></script>
+<script src="/assets/push.js/push.min.self-ec5f45c044c4874d81b83baf2f74511a8260e4140aac1f02415ec64c21474eaa.js?body=1"></script>
+<script src="/assets/cu_webplugin/www/cu-web-plugin.bundle.min.self-7c06bcfc35dcc51df40869721050d35c7324c601b913f08bb4f7fd350495fa28.js?body=1"></script>
+<script src="/assets/plugins.self-d1e25e2d7ace5e7561c0ae7c58d171a50e06ed6eac980c6aba345c2ab98adfcc.js?body=1"></script>
+  <!-- <script src="http://localhost:8000/cu-web-plugin.bundle.js"></script> -->
 </head>
 
-<body class="dashboard">
-	<div class="container">
-	  <header><div class="container-box"><nav><span class="navbar-brand">Web plugin テストページ</span></nav></div></header><main><div class="jumbotron"><div class="container-box"><h1>url before button</h1><p>Web pluginのテストをこちらで行うことができます。<br />選択されたモードに応じてチャットが表示されます。</p></div></div><div class="container-box main-content"><section id="cu-embedded-web-plugin-container" style="width: 100%; height: 450px;"><h1 class="section-title">タイトル</h1><p>サンプルテキストです<br />サンプルテキストです</p><h2>サブタイトル</h2><p>サンプルテキストです<br />サンプルテキストです<br />サンプルテキストです<br />サンプルテキストです</p></section><section><h1 class="section-title">タイトル</h1><p>サンプルテキストです<br />サンプルテキストです<br />サンプルテキストです<br /></p><h2>サブタイトル</h2><p>サンプルテキストです<br />サンプルテキストです<br />サンプルテキストです<br />サンプルテキストです</p></section></div></main><footer><div class="container-box"><span>フッター</span></div></footer><div id="error-dialog" style="display: none"><section class="modal-window"><p class="modal-close" id="error-dialog-close" onclick="getElementById(&#39;error-dialog&#39;).style.display = &#39;none&#39;"><a href="#!"> &times;</a></p><div class="modal-inner"><div class="error-title"><img alt="マーク" src="https://fb0148f4.ngrok.io/assets/surprised_mark-b47f5e83fd9b1f7896946318806c755501ae880e3351af6f9219334ec405942d.png" /><p id="error-content"><a id="node-error"><strong>263:メッセージノードでエラー</strong></a></p></div><div class="error-message"><p><a target="_blank" href="/original_services/4451/scenario_errors?service_id=5258&amp;type=training">エラーの詳細を確認する</a></p></div></div></section></div><script>var __const = [];
-__const['host'] = "https://fb0148f4.ngrok.io"; // dialog_server
-__const['access_token'] = "3ac2ba1d60d2f6ef01a6298a2a3daf08";
-__const['service_id'] = "5258";    //service_id
-__const['secret_token'] = "c87bb6273f23066030f8cc3046ace42e";    //origianl_service_id
-__const['screen'] = "web_plugin_test";
-var app = (function(doc ,scr){
-  var created_element = doc.createElement(scr),
-      sub_ele = doc.getElementsByTagName(scr)[0];
-  created_element.type = 'text/javascript';
-  created_element.async = true;
-  created_element.setAttribute('charset','utf-8');
-  created_element.src = __const['host'] + '/chat_app_logic.js';
-  sub_ele.parentNode.insertBefore(created_element, sub_ele)
-})(document, 'script')
+<body style="height:100%;margin:0 !important;overflow: hidden;position: relative;" id="conciergeu_chat_box">
+  <input type="hidden" name="cookie" id="cookie" value="02ab9e02dc0c34bd799dee9e70df1ca4" />
+  <input type="hidden" name="chat_application_id" id="chat_application_id" value="9" />
+  <input type="hidden" name="original_service_id" id="original_service_id" value="4451" />
+  <input type="hidden" name="service_id" id="service_id" value="5258" />
+  <input type="hidden" name="chat_title" id="chat_title" />
+  <input type="hidden" name="sequences" id="sequences" />
+  <input type="hidden" name="chat_image" id="chat_image" value="/assets/web_plugin_chat-a5604576a51d3a772b9da963eebfffc35b26bcb9c73b258777e4d6b5b2dc6ab7.svg" />
+  <input type="hidden" name="bot_img_def" id="bot_img_def" />
+  <input type="hidden" name="bot_img_1" id="bot_img_1" />
+  <input type="hidden" name="bot_img_2" id="bot_img_2" />
+  <input type="hidden" name="operator_img" id="operator_img" />
+  <input type="hidden" name="client_img" id="client_img" value="/assets/none-af0a2dae712f8621d3328771c3ed8e92ab24be30d66031841d7aa945f79b35d0.svg" />
+  <input type="hidden" name="head_img" id="head_img" value="/assets/clear-71b445dc8c205bec33e05ff5f25b918e7fe4f2ec64c5b484f719731429d50852.svg" />
+  <input type="hidden" name="global_time" id="global_time" value="%Y年%m月%d日 %H:%M" />
+  <input type="hidden" name="send_img" id="send_img" value="/assets/send-099c44daaf9108ff783307066d8060abc8e55641f5cff92040bf42b2cc32c5c6.svg" />
 
-function EncodeHTMLForm(data) {
-  var params = [];
+  <script>
+    var api_path = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+    var push_icon = "/assets/concierge-705e4d5fcae5ef3b18ee17506936bb2e332aff8a1d14c5a9bdd611d16ebf699c.png";
 
-  for (var name in data) {
-      var value = data[name];
-      var param = encodeURIComponent(name) + '=' + encodeURIComponent(value);
+    var addons_options = {"scenario_editable":false,"translation":false,"common_component_editable":false,"scenario_duplicable":false,"user_analysis":false,"csv_export":false,"external_cooperation":false,"operator_response":true};
+    var isAnonymous = "false" === "false";
+    var canServiceUseOperator = "true" === "true";
+    var client_cookie = $('#cookie').val();
+    var histories = null;
 
-      params.push(param);
-  }
+    var chat_title = "";
+    var chat_header_size = "16px";
+    var chat_header_color = "#fcfcfc";
+    var chat_header_shadow = "none";
 
-  return params.join('&').replace(/%20/g, '+');
-}
+    var base_color = "#018BD0";
+    var sub_color = "#f2f2f2";
+    var client_font_color = "#ffffff";
+    var bot_font_color = "#333333";
+    var debug = "false" === "true";
+    var date_hidden = "false" === "true";
+    var form_hidden = "false" === "true";
+    var footerButtons = [];
+    var form_hidden = "false" === "true";
+    var hideCloseButton = "false"  === "true" && "false" !== "true";
+    var canUnfurl = "false"  === "true";
+    var hideFooterCompanyLink = "false" === "true";
+    var hideFileButton = "false" === "true";
+    var hideGeolocationButton = "false" === "true";
+    var hideHeader = false;
+    var webPluginMode = "false" === "true"
+      ? "default"
+      : "default";
+    var showTextCount = "false" === "true";
+    var enableMobileTextCopy = true;
 
-function checkScenarioError(sequence_datas, chat_application_id, user_id_in_chat_application) {
-  if(sequence_datas && sequence_datas[0] && sequence_datas[0].type == "ScenarioErrorSerializer"){
-    document.getElementById("error-dialog").style.display = "none"
-    str = "";
-    sequence_datas.forEach(function(data, index){
-      if(index != 0) str += "</br>";
-      if(data.sequential_last_node_id) {
-        str += "<a id='node-error' onClick=nodeEdit(this) href='#' node-id=" + data.last_node_id + "><strong>" +
-          data.sequential_last_node_id + ": " + data.node_type +"ノードでエラー</strong></a></br>";
+    var start_from_bot = "false" === "true";
+    var client_has_conversation = "false" === "true";
+    var has_scenario_notification_node_alert = "false" === "true";
+
+    var prolog_content = "";
+    var prolog_text = "";
+    var prolog_buttons = "";
+
+    // for other chat plugins now
+    var canUseOperatorFunction = (isAnonymous && canServiceUseOperator) || addons_options.operator_response;
+    var channel = function channel() {
+        if (canUseOperatorFunction && has_scenario_notification_node_alert) {
+            App.cable = ActionCable.createConsumer()
+            return App.cable.subscriptions.create({
+                    channel: "ChatRoomChannel",
+                    room: client_cookie
+                }, {
+                    connected: function connected() {
+                    },
+                    disconnected: function disconnected() {
+                    },
+                    speak: function speak(data) {
+                        this.perform('speak', {
+                            data: data
+                        })
+                    },
+                    received: function received() {
+                        $.noop()
+                    }
+                }
+            )
+        } else {
+            return undefined
+        }
+    }();
+
+    function isIE () {
+      var userAgent = window.navigator.userAgent.toLowerCase();
+      return (
+        userAgent.indexOf('msie') !== -1 ||
+        userAgent.indexOf('trident') > 0
+      );
+    }
+    function isEdge () {
+      var userAgent = window.navigator.userAgent.toLowerCase();
+      return (
+        userAgent.indexOf('edge') !== -1
+      );
+    }
+
+    parent.postMessage({
+        action: "initSize",
+        size: {
+            width: "420px",
+            height: "640px"
+        }
+    }, "*");
+
+    $(document).ajaxError(function (e) {
+        parent.postMessage({
+            action: "ajaxError"
+        }, "*");
+    });
+
+    window.addEventListener('message', function (e) {
+      var data = e.data;
+      switch (data.action) {
+        case "cu:web_plugin:sendMessage":
+          cu.web_plugin.sendMessage({
+            type: "text",
+            isBot: false,
+            withIcon: true,
+            text: data.text,
+            iconType: 'client',
+            time: moment().format("HH:mm")
+          });
+          break;
+
+        case "cu:web_plugin:autoInitConversation":
+          if (start_from_bot && !client_has_conversation) {
+            cu.web_plugin.postMessage({
+              type: "text",
+              isBot: false,
+              withIcon: true,
+              text: "***start from bot***",
+              iconType: 'client',
+              time: moment().format("HH:mm"),
+            });
+          }
+          break;
+      }
+    });
+
+    window.addEventListener('cu:web_plugin:mounted', function (e) {
+      parent.postMessage({
+        action: "cu:web_plugin:mounted"
+      }, "*");
+    });
+
+    function postConversionDataToParent (data) {
+      switch (data.type) {
+        case "google_analytics":
+          return parent.postMessage({
+            action: "cu:web_plugin:gtag:google_analytics",
+            data: data,
+          }, "*");
+        case "google_adwords":
+          return parent.postMessage({
+            action: "cu:web_plugin:gtag:google_adwords",
+            data: data
+          }, "*");
+      }
+    }
+
+    function postFormDataToParent (data) {
+      parent.postMessage({
+        action: "cu:web_plugin:form_node:submitted",
+        data: data
+      }, "*");
+    }
+
+  </script>
+
+
+
+  <div id="cu-web-plugin-app" class="cu-ui-chat"></div>
+  <style>
+    body {
+      /* To let web_plugin zoom-in and out, touch-action needs to be auto */
+      touch-action: auto !important;
+    }
+
+    .cu-ui-message .cu-ui-message-content p {
+      word-break: break-word;
+    }
+    .cu-ui-message.cu-ui-message-user .cu-ui-message-content {
+      background-color: #018BD0;
+      color: #ffffff;
+    }
+    .cu-ui-message.cu-ui-message-bot .cu-ui-message-content {
+      background-color: #f2f2f2;
+      color: #333333;
+    }
+    .cu-ui-chat .cu-ui-chat-header {
+      background-color: #018BD0;
+    }
+    .cu-ui-chat .cu-ui-chat-body {
+      background-color: #ffffff;
+      border: 0;
+    }
+    .cu-ui-chat .cu-ui-chat-footer {
+      background-color: #ffffff;
+      border: 0;
+    }
+
+    /* ========== Only for hakone_internal bot ========== */
+    .cu-ui-chat-header .cu-ui-button.cu-ui-outline:hover {
+      background-color: #018BD0;
+    }
+    .cu-ui-chat .cu-ui-chat-header .cu-ui-outline:hover {
+      background-color: #018BD0;
+    }
+    .cu-ui-chat-header .cu-ui-button.cu-ui-outline:active {
+      background-color: #018BD0;
+    }
+    .cu-ui-chat-header .cu-ui-button.cu-ui-outline:focus {
+      background-color: #018BD0;
+    }
+    .cu-ui-message .cu-ui-message-time {
+      color: #333333;
+    }
+
+    .cu-ui-button.cu-ui-button-base.cu-ui-secondary.cu-ui-button-lg {
+      background-color: #018BD0;
+    }
+    .cu-ui-chat .cu-ui-chat-footer-buttons {
+      background-color: #ffffff;
+      border-top: none;
+    }
+    /* ========== End for hakone_internal bot ========== */
+
+    /* ========== Only for サニーヘルス様(マイクロダイエット) bot ========== */
+    /* ========== End for サニーヘルス様(マイクロダイエット) bot ========== */
+
+    /* ========== Below is temporarily fix. should be fixed in storybook ========== */
+    .cu-ui-carousel .cu-ui-carousel-slide .cu-ui-carousel-image {
+      background-size: cover;
+      background-position: center;
+    }
+    /* ========== End temporarily fix ========== */
+
+  </style>
+  <script type="text/javascript" charset="utf-8">
+    parent.postMessage({
+        action: "hideCloseButton"
+    }, "*");
+    const ele = document.querySelector('.__open_option');
+    if (ele) {
+        ele.innerText = "";
+    }
+
+    const rootElement = document.getElementById('cu-web-plugin-app');
+
+    if (channel) {
+        channel.received = function (receivedData) {
+            let parse_data = JSON.parse(receivedData);
+            if (parse_data[0].user == "operator") {
+                _.each(parse_data, function (message) {
+                    if (message.type === "system") {
+                        cu.web_plugin.passiveReceiver({
+                            type: "system",
+                            text: message.text,
+                        });
+                        cu.web_plugin.chatRoomConnection({
+                          action: message.action
+                        });
+                    } else if (!_.isUndefined(message.text)) {
+                        cu.web_plugin.passiveReceiver({
+                            type: "text",
+                            isBot: true,
+                            withIcon: true,
+                            text: message.text,
+                            iconType: 'operator',
+                            time: moment().format("HH:mm")
+                        })
+                    } else if (!_.isUndefined(message.url)) {
+                        cu.web_plugin.passiveReceiver({
+                            type: "normal-image",
+                            isBot: true,
+                            withIcon: true,
+                            iconType: 'operator',
+                            url: message.url,
+                            time: moment().format("HH:mm")
+                        })
+                    }
+                })
+            }
+        }
+        // ie's preventDefault nor returnValue is not working properly
+        // to disable browser alert. comment-outed for now, but
+        // it needs to be fixed
+        if (!isIE() && !isEdge()) {
+          window.addEventListener("beforeunload", function (event) {
+            if (event.preventDefault) {
+              event.preventDefault();
+            } else {
+              event.returnValue = false;
+            }
+
+            channel.speak([{
+              text: "---end user out---",
+              type: "system",
+              action: "end_user_out",
+              user: 'end_user'
+            }]);
+          });
+        }
+    }
+
+    function getIsBot (data) {
+      return data.user ? _.includes(['bot', 'operator'], data.user) : true
+    }
+
+    function getIconType (data) {
+      let iconType = '';
+
+      if (data.user) {
+        switch (data.user) {
+          case 'client':
+            iconType = 'client';
+            break;
+          case 'operator':
+            iconType = 'operator';
+            break;
+          default:
+            iconType = getBotIconType(data.bot_img_id);
+        }
+      } else {
+        iconType = getBotIconType(data.bot_img_id);
       }
 
-      str += data.message + "</br>";
-    })
-    document.getElementById("error-content").innerHTML = str;
-    document.getElementById("error-dialog").style.display = "block"
-
-  } else {
-    if(sequence_datas && sequence_datas.length && sequence_datas.length > 0) {
-      sequence_id = sequence_datas[sequence_datas.length - 1].id;
-    } else {
-      sequence_id = "";
+      return iconType;
     }
 
-    var xhr = new XMLHttpRequest();
-    var url = "https://fb0148f4.ngrok.io/original_services/4451/scenario_errors/check_errors"
-    var send_data = {
-      "service_id": __const['service_id'],
-      "sequence_id": sequence_id,
-      "chat_application_id": chat_application_id,
-      "parent_id": "",
-      "user_id_in_chat_application": user_id_in_chat_application
+    function getBotIconType (bot_img_id) {
+      if (bot_img_id == 1) {
+        return 'bot_1';
+      } else if (bot_img_id == 2) {
+        return'bot_2';
+      } else {
+        return 'bot_default';
+      }
     }
-    var params = EncodeHTMLForm(send_data);
 
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        datas  = JSON.parse(xhr.responseText);
-        if(datas.length > 0) {
-          document.getElementById("error-dialog").style.display = "none"
-          str = ""
-          datas.slice(0, 2).forEach(function(data, index){
-            if(index != 0) str += "</br>";
-            str += "<a><strong>" + data["node_sequential"] + ": " + data["node_type"] +"ノードでエラー</strong></a></br>"
-            data["messages"].slice(0, 3).forEach(function(message){
-              str += message + "</br>"
-            });
-          })
-          document.getElementById("error-content").innerHTML = str;
-          document.getElementById("error-dialog").style.display = "block"
+    function parser(datas) {
+        return _.map(datas, function(d) {
+            if (d.message) {
+                if (d.candidates) {
+                    return {
+                        "id": d.id,
+                        "type": "button",
+                        "text": d.message,
+                        "isBot": d.user ? _.includes(['bot', 'operator'], d.user) : true,
+                        "buttonType": "block",
+                        "iconType": getIconType(d),
+                        "buttons": _.map(JSON.parse(d.candidates), function (button, index) {
+                          return {
+                            "type": "postback-with-message",
+                            "text": button,
+                            "url": d.button_urls && d.button_urls[index] ? d.button_urls[index] : undefined,
+                            // data: PostbackData "<carousel_member_id>::<carousel_button_id>::<custom_db_id>::<set_entity_id>::<carousel_title>::<carousel_node_id>::<button_candidate_id>"
+                            "data": "::::::::::::"+ d.candidate_ids.split(",")[index]
+                          }
+                        }),
+                        "time": moment(d.created_at).format("HH:mm"),
+                        "wait_time": d.wait_time,
+                        "text_count_max": d.text_count_max,
+                        "text_count_min": d.text_count_min
+                    }
+                }
+                return {
+                    "id": d.id,
+                    "type": "text",
+                    "isBot": d.user ? _.includes(['bot', 'operator'], d.user) : true,
+                    "withIcon": true,
+                    "text": d.message,
+                    "iconType": getIconType(d),
+                    "time": moment(d.created_at).format("HH:mm"),
+                    "wait_time": d.wait_time,
+                    "text_count_max": d.text_count_max,
+                    "text_count_min": d.text_count_min,
+                }
+            } else if (d.content_url) {
+                if (/\.(m4a|mp3)/.test(d.content_url)) {
+                    return {
+                        "id": d.id,
+                        "type": "audio",
+                        "isBot": d.user ? _.includes(['bot', 'operator'], d.user) : true,
+                        "url": d.content_url,
+                        "iconType": getIconType(d),
+                        "time": moment(d.created_at).format("HH:mm"),
+                        "wait_time": d.wait_time,
+                        "text_count_max": d.text_count_max,
+                        "text_count_min": d.text_count_min,
+                    }
+                } else if (/\.mp4/.test(d.content_url)) {
+                    return {
+                        "id": d.id,
+                        "type": "video",
+                        "isBot": d.user ? _.includes(['bot', 'operator'], d.user) : true,
+                        "url": d.content_url,
+                        "iconType": getIconType(d),
+                        "time": moment(d.created_at).format("HH:mm"),
+                        "wait_time": d.wait_time,
+                        "text_count_max": d.text_count_max,
+                        "text_count_min": d.text_count_min,
+                    }
+                } else if (/\.pdf/.test(d.content_url)) {
+                    return {
+                        "id": d.id,
+                        "type": "pdf",
+                        "isBot": d.user ? _.includes(['bot', 'operator'], d.user) : true,
+                        "url": d.content_url,
+                        "additional_url": d.additional_url,
+                        "iconType": getIconType(d),
+                        "time": moment(d.created_at).format("HH:mm"),
+                        "wait_time": d.wait_time,
+                        "fileName": d.file_name,
+                        "text_count_max": d.text_count_max,
+                        "text_count_min": d.text_count_min,
+                    }
+                } else {
+                    return {
+                        "id": d.id,
+                        "type": "normal-image",
+                        "isBot": d.user ? _.includes(['bot', 'operator'], d.user) : true,
+                        "url": d.content_url,
+                        "additional_url": d.additional_url,
+                        "iconType": getIconType(d),
+                        "time": moment(d.created_at).format("HH:mm"),
+                        "wait_time": d.wait_time,
+                        "text_count_max": d.text_count_max,
+                        "text_count_min": d.text_count_min,
+                    }
+                }
+            } else if (d.candidates) {
+                return {
+                    "id": d.id,
+                    "type": "button",
+                    "isBot": d.user ? _.includes(['bot', 'operator'], d.user) : true,
+                    "iconType": getIconType(d),
+                    "buttonType": "block",
+                    "buttons": _.map(JSON.parse(d.candidates), function (button, index) {
+                        return {
+                            "type": "postback-with-message",
+                            "text": button,
+                            // data: PostbackData "<carousel_member_id>::<carousel_button_id>::<custom_db_id>::<set_entity_id>::<carousel_title>::<carousel_node_id>::<button_candidate_id>"
+                            "data": "::::::::::::"+ d.candidate_ids.split(",")[index]
+                        }
+                    }),
+                    "time": moment(d.created_at).format("HH:mm"),
+                    "wait_time": d.wait_time,
+                    "text_count_max": d.text_count_max,
+                    "text_count_min": d.text_count_min,
+                }
+            } else if (d.carousels) {
+                const carousels = JSON.parse(d.carousels);
+                return {
+                    "id": d.id,
+                    "type": "carousel",
+                    "carousels": _.map(carousels.carousel_contents, function (carousel) {
+                        return {
+                            "placeholder": carousel.background_content,
+                            "title": carousel.title,
+                            "explain": carousel.sub_text,
+                            "buttons": _.map(carousel.buttons, function (button) {
+                                if (button.url) {
+                                    return {
+                                        "type": "url",
+                                        "text": button.title,
+                                        "url": button.url
+                                    }
+                                } else {
+                                    return {
+                                        "type": "postback",
+                                        "text": button.title,
+                                        // data: PostbackData "<carousel_member_id>::<carousel_button_id>::<custom_db_id>::<set_entity_id>::<carousel_title>::<carousel_node_id>::<button_candidate_id>"
+                                        "data": button.carousel_member_id + "::" + button.carousel_button_id + "::" + button.custom_db_id + "::"+ button.set_entity_id + "::"+ button.carousel_title + "::"+ button.carousel_node_id + "::"
+                                    }
+                                }
+
+                            })
+                        }
+                    }),
+                    "wait_time": d.wait_time,
+                    "text_count_max": d.text_count_max,
+                    "text_count_min": d.text_count_min,
+                };
+            } else if (d.form_data) {
+                const formData = JSON.parse(d.form_data);
+                return {
+                    "id": d.id,
+                    "type": "form",
+                    "isBot": true,
+                    "formData": formData
+                };
+            } else {
+                return {}
+            }
+        });
+    }
+
+    cu.web_plugin.initApp(rootElement, debug, {
+        title: chat_title,
+        botSrcDef: $("#bot_img_def").val(),
+        botSrc1: $("#bot_img_1").val(),
+        botSrc2: $("#bot_img_2").val(),
+        clientSrc: $("#client_img").val(),
+        operatorSrc: $("#operator_img").val(),
+        withoutDate: date_hidden,
+        withoutForm: form_hidden,
+        hideCloseButton: hideCloseButton,
+        canUnfurl: canUnfurl,
+        hideFooterCompanyLink: hideFooterCompanyLink,
+        hideGeolocationButton: hideGeolocationButton,
+        hideFileButton: hideFileButton,
+        hideHeader: hideHeader,
+        webPluginMode: webPluginMode,
+        showTextCount: showTextCount,
+        enableMobileTextCopy: enableMobileTextCopy,
+        baseParams: {
+          headerFontSize: chat_header_size,
+          headerTextColor: chat_header_color,
+          headerTextShadow: chat_header_shadow,
+          clientPromptColor: client_font_color,
+          clientPromptBackgroundColor: base_color,
+          botPromptColor: bot_font_color,
+          botPromptBackgroundColor: sub_color
+        },
+        debugFunc: function() {
+            $('.__option_box').show();
+            $('.__open_option').hide();
+
+        },
+        closeFunc: function() {
+            parent.postMessage({
+                action: "closeWebplugin"
+            }, "*");
         }
+    });
+
+    function makeBasicPostData (_data, _carousel) {
+      return {
+        type: 'post',
+        url: api_path + "/v2/sequences",
+        data: _.assign(format.post_sequence({
+          message: _data.text,
+          cookie: client_cookie,
+          user_name: "client",
+          location: _data.location,
+        }), _carousel),
+        dataType: 'json',
+        crossDomain: true,
+        encode: true
+      };
+    }
+
+    var getPostData = function(data, carousel) {
+      switch (data.type) {
+        case "text":     return makeBasicPostData(data, carousel);
+        case "postback": return makeBasicPostData(data, carousel);
+        case "location": return makeBasicPostData(data, carousel);
+        case "normal-image":
+          return {
+            type: 'post',
+            url: api_path + "/v2/sequences",
+            data: format.post_sequence_with_content({
+              cookie: client_cookie,
+              file: data.file,
+            }),
+            cache: false,
+            processData: false,
+            contentType: false,
+          };
       }
     };
 
-    xhr.open("GET", url + "?" + params, true);
-    xhr.setRequestHeader( 'Content-Type', 'application/json' );
-    xhr.send(null);
-  };
-}</script><style type="text/css">section {
-  display: block;
-}
+    cu.web_plugin.initProtocol(function(data) {
+        return function(success, failed) {
+          var carousel = {};
+          if (data.data) {
+              // FormNode
+              if (data.data.objects) {
+                  var strData = JSON.stringify({
+                      node_id: data.data.nodeId,
+                      objects: data.data.objects
+                  });
+                  carousel = {
+                    filled_form_data: strData
+                  };
 
-.modal-window {
-  width: 380px;
-  background: #F0F0F0;
-  border-radius: 6px;
-  padding: 20px;
-}
+                  // for conversion
+                  var conversion = data.data.conversion;
+                  if (conversion && conversion.length > 0) {
+                      $.each(conversion, function (idx, c) {
+                          postConversionDataToParent(c);
+                      });
+                  }
 
-.modal-close {
-  text-align: right;
-}
+                  // for propagating form data to parent
+                  postFormDataToParent(data.data);
+              }
+              // CarouselNode
+              else {
+                  var tmp = data.data.split('::');
+                  // PostbackData
+                  carousel = {
+                      carousel_member_id: tmp[0],
+                      carousel_button_id: tmp[1],
+                      custom_db_id: tmp[2],
+                      set_entity_id: tmp[3],
+                      carousel_title: tmp[4],
+                      carousel_node_id: tmp[5],
+                      button_candidate_id: tmp[6]
+                  };
+              }
+          }
 
-#error-dialog {
-  z-index: 99999;
-  position: fixed;
-  top: 0px;
-  right: 0px;
-}
-.error-title {
-  display: flex;
-  line-height: 1.5;
-}
-.error-title img {
-    width: 36px;
-    height: 36px;
-    margin-right: 8px;
-}
-#error-content {
-  margin-top: 0px;
-}
-.error-message {
-  text-align: center;
-  padding-top: 10px;
-  line-height: 2;
-}
-.mark {
-  padding-right: 10px;
-}
+          var post_data = getPostData(data, carousel);
 
+          $.ajax(post_data).error(function(e) {
+              failed();
+          }).success(function(datas) {
+              if(datas && datas[0] && datas[0].type != "ScenarioErrorSerializer"){
+                if (datas.length > 0) {
+                    if(datas[0].current_intent_buttons && datas[0].current_intent_buttons != "") {
+                      var newfooterButtons = JSON.parse(datas[0].current_intent_buttons);
+                      cu.web_plugin.updateBottomButtons(newfooterButtons);
+                    }
+                    success(parser(datas));
+                }
+                if ($("#debug").prop('checked')){
+                    debugerBox.init(datas)
+                };
+              }
 
-html, body {
-  margin: 0;
-}
+              if (datas && $("#check-scenario-error").length > 0 && parent.checkScenarioError) {
+                  parent.checkScenarioError(datas, $("#chat_application_id").val(), $('#cookie').val());
+              }
+          });
 
-* {
-  font-family: 'Noto SansJP Regular', helvetica;
-}
+          $('#node_id_should_be_started').val("");
 
-nav {
-  height: 64px;
-  display: flex;
-  align-items: center;
-}
+          if (channel) {
+              switch (data.type) {
+                  case "text":
+                      channel.speak([{
+                        message: data.text,
+                        user_name_in_chat_application: 'client',
+                        user_id_in_chat_application: $('#cookie').val(),
+                        chat_application_id: $("#chat_application_id").val(),
+                        original_service_id: $("#original_service_id").val(),
+                        service_id: $("#service_id").val(),
+                      }]);
+                      break;
+                  case "normal-image":
+                      channel.speak([{
+                        content_url: data.url,
+                        user_name_in_chat_application: 'client',
+                        user_id_in_chat_application: $('#cookie').val(),
+                        chat_application_id: $("#chat_application_id").val(),
+                        original_service_id: $("#original_service_id").val(),
+                        service_id: $("#service_id").val(),
+                      }]);
+                      break;
+              }
+          }
+      }
+    });
 
-h1 {
-  font-size: 32px;
-}
-h2 {
-  font-size: 20px;
-}
+    cu.web_plugin.updateBottomButtons(footerButtons);
 
-p {
-  line-height: 2;
-}
+    var datas = parser(JSON.parse(histories));
 
-section {
-  padding: 40px 0;
-}
+    var pro_datas = [
+      function(){
+        if (prolog_content) {
+            return {
+              "id": 'prolog-content-1',
+              "type": "normal-image",
+              "isBot": true,
+              "withIcon": true,
+              "iconType": 'bot_default',
+              "url": prolog_content,
+              "time": moment().format("HH:mm")
+            }
+        } else {
+            return {}
+        }
+      }(),
+      function() {
+        if (prolog_text) {
+          if (prolog_buttons) {
+              return {
+                  "id": 'prolog-content-2',
+                  "type": "button",
+                  "text": prolog_text.join("\n"),
+                  "isBot": true,
+                  "iconType": 'bot_default',
+                  "buttonType": "flex",
+                  "buttons": _.map(prolog_buttons.split(','), function (button) {
+                      return {
+                          "type": "message",
+                          "text": button
+                      }
+                  }),
+                  "time": moment().format("HH:mm")
+              }
+          } else {
+              return {
+                  "id": 'prolog-content-3',
+                  "type": "text",
+                  "isBot": true,
+                  "iconType": 'bot_default',
+                  "withIcon": true,
+                  "text": prolog_text.join('\n'),
+                  "time": moment().format("HH:mm")
+              }
+          }
+        } else {
+            if (prolog_buttons) {
+                return {
+                    "id": 'prolog-content-4',
+                    "type": "button",
+                    "text": "",
+                    "isBot": true,
+                    "iconType": 'bot_default',
+                    "buttonType": "block",
+                    "buttons": _.map(prolog_buttons.split(','), function (button) {
+                        return {
+                            "type": "message",
+                            "text": button
+                        }
+                    }),
+                    "time": moment().format("HH:mm")
+                }
+            }
+        }
+      }()
+    ];
+    cu.web_plugin.loadData(pro_datas);
+    cu.web_plugin.loadData(datas);
 
-.navbar-brand {
-  font-size: 18px;
-}
-
-.container-box {
-  max-width: 1024px;
-  padding: 0 16px;
-  margin: 0 auto;
-}
-
-.jumbotron {
-  padding: 24px 0;
-  background-color: #3a8bcb;
-}
-.jumbotron * {
-  color: white;
-}
-
-.main-content {
-  box-shadow: 0 2px 4px rgba(0,0,0,.16);
-}
-
-.section-title {
-  padding: 24px 0 12px;
-  border-bottom: 1px solid #ccc;
-}
-
-footer {
-  padding: 80px;
-  background-color: #333;
-}
-footer * {
-  color: white;
-}</style>
-	</div>
-
-<script async type="text/javascript" id="mini-profiler" src="/mini-profiler-resources/includes.js?v=251162ee7dc30da30d5370581c664510" data-version="251162ee7dc30da30d5370581c664510" data-path="/mini-profiler-resources/" data-current-id="3ljkyokdsmfituigbk9u" data-ids="3ljkyokdsmfituigbk9u,xvgt8cttefczzkqgvyup,z3h2o6nppdfbnylcuug1" data-horizontal-position="left" data-vertical-position="top" data-trivial="false" data-children="false" data-max-traces="20" data-controls="false" data-authorized="true" data-toggle-shortcut="Alt+P" data-start-hidden="false" data-collapse-results="true" data-html-container="body"></script>
+  </script>
+<script async type="text/javascript" id="mini-profiler" src="/mini-profiler-resources/includes.js?v=251162ee7dc30da30d5370581c664510" data-version="251162ee7dc30da30d5370581c664510" data-path="/mini-profiler-resources/" data-current-id="hdq0cqbll3idlyau7mpd" data-ids="hdq0cqbll3idlyau7mpd,6a72vo5pfkkqydyz8hjm,b9ivcmq0st9rqbxat4wq,d7ht3bcdkht0e4c45ol9,s12on7k9l2kjczodpv5l,ms73o2pg21kfh4cem99c,u6c31umno0vedloib8zt,cxyjlkdmlk37bq9tdyoo,wwb2rs58kx48kikhskcd,74kc1wl6rqwywhkkkxqe,o7pexfcgnb53nvrw7o5b,zo6tfiu4q0lrfxropu8i,f1h1itc9yqcdoku1isva" data-horizontal-position="left" data-vertical-position="top" data-trivial="false" data-children="false" data-max-traces="20" data-controls="false" data-authorized="true" data-toggle-shortcut="Alt+P" data-start-hidden="false" data-collapse-results="true" data-html-container="body"></script>
 </body>
 </html>
